@@ -28,6 +28,8 @@ fi
 # Define the function to add
 BOOKMARK_FUNC=$(
   cat <<EOF
+
+# Bookmark tool
 bookmark() {
     if [[ "\$1" == "--goto" && -n "\$2" ]]; then
         cd "\$(python3 $INSTALL_DIR/bookmark.py --goto \"\$2\")"
@@ -46,10 +48,5 @@ else
   echo "[=] Bookmark function already exists in $RC_FILE"
 fi
 
-# Source the RC file
-echo "[*] Sourcing $RC_FILE..."
-# shellcheck disable=SC1090
-source "$RC_FILE"
-
 echo "[✓] $PROJECT installed and shell function is ready!"
-echo "Try running: bookmark --help"
+echo "Restart or source the shell and try running: bookmark --help"
