@@ -26,19 +26,18 @@ else
 fi
 
 # Define the function to add
-BOOKMARK_FUNC=$(
-  cat <<EOF
+cat >>"$SHELL_RC" <<'EOF'
 
-# Bookmark tool
+# ──────── bookmark CLI integration ────────
 bookmark() {
+    # Python CLI wrapper: handles --goto differently
     if [[ "\$1" == "--goto" && -n "\$2" ]]; then
-        cd "\$(python3 $INSTALL_DIR/bookmark.py --goto \"\$2\")"
+        cd "\$(python3 ~/.local/share/bookmark/bookmark.py --goto \"\$2\")"
     else
-        python3 $INSTALL_DIR/bookmark.py "\$@"
+        python3 ~/.local/share/bookmark/bookmark.py "\$@"
     fi
 }
 EOF
-)
 
 # Add to shell rc if not already present
 if ! grep -q "bookmark()" "$RC_FILE"; then
