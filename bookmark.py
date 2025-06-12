@@ -38,7 +38,6 @@ def goto(data, name):
     if name in data:
         path = data[name]
         print(path)
-        # subprocess.run(["bash", "goto.sh", path])
     else:
         print("Bookmark not found")
 
@@ -55,7 +54,8 @@ def main():
 
     args = parser.parse_args()
 
-    data_file = "data.json"
+    TOOL_PATH = Path.home() / ".local/share/bookmark"
+    data_file = f"{TOOL_PATH}/data.json"
 
     with open(data_file, "r") as f:
         bookmarks = json.load(f)
@@ -71,6 +71,9 @@ def main():
 
     if args.remove:
         remove(data_file, bookmarks, args.remove)
+
+    if args.goto:
+        goto(bookmarks, args.goto)
 
 
 if __name__ == "__main__":

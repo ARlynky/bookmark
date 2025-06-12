@@ -2,13 +2,20 @@
 set -e
 
 PROJECT="bookmark"
-
 REPO_URL="https://github.com/ARlynky/$PROJECT.git"
 INSTALL_DIR="$HOME/.local/share/$PROJECT"
-BIN_DIR="$HOME/.local/bin"
+
+# Determine the shell rc file
+if [[ "$SHELL" == */zsh ]]; then
+  RC_FILE="$HOME/.zshrc"
+elif [[ "$SHELL" == */bash ]]; then
+  RC_FILE="$HOME/.bashrc"
+else
+  echo "⚠️ Unknown shell. Please manually add the bookmark function to your shell's rc file."
+  RC_FILE="$HOME/.bashrc" # Fallback
+fi
 
 mkdir -p "$INSTALL_DIR"
-mkdir -p "$BIN_DIR"
 
 if [ -d "$INSTALL_DIR/.git" ]; then
   echo "[*] Updating existing $PROJECT install..."
@@ -18,19 +25,31 @@ else
   git clone "$REPO_URL" "$INSTALL_DIR"
 fi
 
-cat >"$BIN_DIR/$PROJECT" <<'EOF'
-#!/bin/bash
-cd "$HOME/.local/share/bookmark"
-exec python3 bookmark.py "$@"
+# Define the function to add
+BOOKMARK_FUNC=$(
+  cat <<EOF
+bookmark() {
+    if [[ "\$1" == "--goto" && -n "\$2" ]]; then
+        cd "\$(python3 $INSTALL_DIR/bookmark.py --goto \"\$2\")"
+    else
+        python3 $INSTALL_DIR/bookmark.py "\$@"
+    fi
+}
 EOF
-chmod +x "$BIN_DIR/$PROJECT"
+)
 
-if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
-  echo "⚠️ Warning: $BIN_DIR is not in your PATH."
-  echo "Add this line to your shell profile:"
-  echo 'export PATH="$HOME/.local/bin:$PATH"'
+# Add to shell rc if not already present
+if ! grep -q "bookmark()" "$RC_FILE"; then
+  echo "$BOOKMARK_FUNC" >>"$RC_FILE"
+  echo "[+] Bookmark function added to $RC_FILE"
+else
+  echo "[=] Bookmark function already exists in $RC_FILE"
 fi
 
-echo "[✓] $PROJECT installed!"
-echo "Make sure \$HOME/.local/bin is in your PATH."
-echo "Try running: $PROJECT -h"
+# Source the RC file
+echo "[*] Sourcing $RC_FILE..."
+# shellcheck disable=SC1090
+source "$RC_FILE"
+
+echo "[✓] $PROJECT installed and shell function is ready!"
+echo "Try running: bookmark --help"
