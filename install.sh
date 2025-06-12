@@ -20,8 +20,8 @@ fi
 
 cat >"$BIN_DIR/$PROJECT" <<'EOF'
 #!/bin/bash
-cd "$HOME/.local/share/todo"
-exec python3 todo.py "$@"
+cd "$HOME/.local/share/bookmark"
+exec python3 bookmark.py "$@"
 EOF
 chmod +x "$BIN_DIR/$PROJECT"
 
