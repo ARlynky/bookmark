@@ -10,7 +10,7 @@ I may return to it in the future with better tools or new ideas.
 
 ---
 
-## 🚧 Problems I Faced
+## Problems I Faced
 
 ### 1. Can't Mark the User's Actual Directory
 
@@ -68,7 +68,7 @@ It works, *technically*, but it’s not clean. And I want my tools to be clean.
 
 ---
 
-## 🗃️ Original README (Preserved)
+## Original README (Preserved)
 
 > This repo is for **personal use** and not intended for
 public consumption (yet!)  
@@ -97,7 +97,7 @@ This will:
 
 ---
 
-## 🔁 Updating
+## Updating
 
 You can re-run the install script to update either from:
 
@@ -110,4 +110,4 @@ You can re-run the install script to update either from:
 
 ### 📦 Status
 
-Archived — might return later when I'm stronger. 🧠🛠
+Archived — might return later when I'm stronger.
