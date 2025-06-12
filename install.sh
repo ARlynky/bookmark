@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-REPO_URL="https://github.com/ARlynky/todo.git"
-INSTALL_DIR="$HOME/.local/share/todo"
-BIN_DIR="$HOME/.local/bin"
-
 PROJECT="bookmark"
+
+REPO_URL="https://github.com/ARlynky/$PROJECT.git"
+INSTALL_DIR="$HOME/.local/share/$PROJECT"
+BIN_DIR="$HOME/.local/bin"
 
 mkdir -p "$INSTALL_DIR"
 mkdir -p "$BIN_DIR"
