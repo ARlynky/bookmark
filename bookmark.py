@@ -12,8 +12,11 @@ def mark(data_file, data, name):
 
 
 def listing(bookmarks):
-    for name, path in bookmarks.items():
-        print(name, ": ", path)
+    if len(bookmarks) == 0:
+        print("nothing bookmarked")
+    else:
+        for name, path in bookmarks.items():
+            print(name, ": ", path)
 
 
 def empty(data_file):
