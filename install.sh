@@ -26,15 +26,14 @@ else
 fi
 
 # Define the function to add
-cat >>"$SHELL_RC" <<'EOF'
+cat >>"$RC_FILE" <<'EOF'
 
 # ──────── bookmark CLI integration ────────
 bookmark() {
-    # Python CLI wrapper: handles --goto differently
-    if [[ "\$1" == "--goto" && -n "\$2" ]]; then
-        cd "\$(python3 ~/.local/share/bookmark/bookmark.py --goto \"\$2\")"
+    if [[ "$1" == "--goto" && -n "$2" ]]; then
+        cd "$(python3 ~/.local/share/bookmark/bookmark.py --goto "$2")"
     else
-        python3 ~/.local/share/bookmark/bookmark.py "\$@"
+        python3 ~/.local/share/bookmark/bookmark.py "$@"
     fi
 }
 EOF
