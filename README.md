@@ -1,4 +1,4 @@
-# BOOKMARK testing
+# BOOKMARK
 
 > This repo is for **personal use** and not intended for
 public consumption (yet!)  
