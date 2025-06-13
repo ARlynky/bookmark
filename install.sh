@@ -25,8 +25,9 @@ else
   git clone "$REPO_URL" "$INSTALL_DIR"
 fi
 
-# Define the function to add
-cat >>"$RC_FILE" <<'EOF'
+# Add to shell rc if not already present
+if ! grep -q "bookmark()" "$RC_FILE"; then
+  cat >>"$RC_FILE" <<'EOF'
 
 # ──────── bookmark CLI integration ────────
 bookmark() {
@@ -38,9 +39,6 @@ bookmark() {
 }
 EOF
 
-# Add to shell rc if not already present
-if ! grep -q "bookmark()" "$RC_FILE"; then
-  echo "$BOOKMARK_FUNC" >>"$RC_FILE"
   echo "[+] Bookmark function added to $RC_FILE"
 else
   echo "[=] Bookmark function already exists in $RC_FILE"
